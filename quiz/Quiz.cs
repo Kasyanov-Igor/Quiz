@@ -15,10 +15,10 @@
 			{
 				Console.Clear();
 				Console.WriteLine("Menu:");
-				Console.WriteLine("1. ");
-				Console.WriteLine("2. ");
-				Console.WriteLine("3. ");
-				Console.WriteLine("4. ");
+				Console.WriteLine("1. New quiz");
+				Console.WriteLine("2. View the result of the last quiz");
+				Console.WriteLine("3. View top 20");
+				Console.WriteLine("4. Change profile settings");
 				Console.WriteLine("5. Exit");
 
 				Console.WriteLine("\nEnter:");
