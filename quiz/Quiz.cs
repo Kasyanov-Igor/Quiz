@@ -48,6 +48,12 @@
 					case 2:
 
 						break;
+					case 3:
+
+						break;
+					case 4:
+						SettingsProfile();
+						break;
 				}
 			}
 		}
@@ -62,8 +68,17 @@
 			Console.WriteLine("Enter pssword");
 			this._password = Console.ReadLine();
 			Console.Clear();
-			if (File.ReadLines(filePath).Any(line => line.Contains($"{this._login} {this._password}")))
+			string[] lines = File.ReadAllLines(filePath);
+			if (lines.Any(line => line.Contains($"{this._login} {this._password}")))
 			{
+				for (int i = 0; i < lines.Length; i++)
+				{
+					if (lines[i].Contains($"{this._login} {this._password}"))
+					{
+						string[] a = lines[i].Split(' ');
+						this._dataBirth = a[2];
+					}
+				}
 				return true;
 			}
 
@@ -136,6 +151,26 @@
 			}
 			return false;
 		}
+
+		private void SettingsProfile(string filePath = "./Users.txt")
+		{
+			string[] lines = File.ReadAllLines(filePath).Where(line => line != $"{this._login} {this._password} {this._dataBirth}").ToArray();
+			File.WriteAllLines(filePath, lines);
+
+			Console.WriteLine($"{this._login} - setting password");
+			this._password = Console.ReadLine();
+			Console.WriteLine($"{this._login} - setting data");
+			this._dataBirth = Console.ReadLine();
+			Console.Clear();
+			using (StreamWriter writer = new StreamWriter(filePath, true))
+			{
+				writer.WriteLine($"{this._login} {this._password} {this._dataBirth}");
+				writer.Close();
+			}
+			Console.WriteLine($"The data has been changed");
+			Console.Read();
+		}
+
 	}
 }
 
