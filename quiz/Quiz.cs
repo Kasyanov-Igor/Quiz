@@ -34,6 +34,15 @@
 				switch (numberMenuElement)
 				{
 					case 1:
+						Console.WriteLine("Quiz section: Biology, Informatics, Mathematics");
+						string? userDirectory = Console.ReadLine();
+						Console.Clear();
+
+						if (PlayQuiz(userDirectory))
+						{
+							Console.WriteLine("Test passed");
+						}
+						Console.WriteLine("ERROR");
 
 						break;
 					case 2:
@@ -49,11 +58,11 @@
 		public bool CheckingUserExistence(string filePath = "./Users.txt")
 		{
 			Console.WriteLine("Enter login");
-			string? login = Console.ReadLine();
+			this._login = Console.ReadLine();
 			Console.WriteLine("Enter pssword");
-			string? password = Console.ReadLine();
+			this._password = Console.ReadLine();
 			Console.Clear();
-			if (File.ReadLines(filePath).Any(line => line.Contains($"{login} {password}")))
+			if (File.ReadLines(filePath).Any(line => line.Contains($"{this._login} {this._password}")))
 			{
 				return true;
 			}
@@ -83,6 +92,48 @@
 				return true;
 			}
 
+			return false;
+		}
+
+		private bool PlayQuiz(string fileDirectory)
+		{
+			byte answersTrue = 0;
+			if (!File.Exists("./" + fileDirectory + "Questions.txt"))
+			{
+				using (StreamReader readerQuest = new StreamReader("./" + fileDirectory + "/Questions.txt"))
+				{
+					int lineCount = 0;
+					byte count = 1;
+					string? line;
+					while ((line = readerQuest.ReadLine()) != null)
+					{
+						Console.WriteLine(line);
+						lineCount++;
+
+						if (lineCount % 9 == 0)
+						{
+							Console.WriteLine("\tAnswer");
+							char answerUser = Convert.ToChar(Console.ReadLine());
+
+							if (File.ReadLines("./" + fileDirectory + "/Answers.txt").Any(line => line.Contains($"{count} {answerUser})")))
+							{
+								answersTrue++;
+							}
+							count++;
+							Console.Clear();
+						}
+					}
+				}
+				using (StreamWriter writer = new StreamWriter("./" + fileDirectory + "/Top20.txt", true))
+				{
+					writer.WriteLine($"{this._login}-{answersTrue}");
+					writer.Close();
+				}
+				Console.Clear();
+				Console.WriteLine($"Quiz section: {fileDirectory}\n{this._login} - True Answer: {answersTrue}");
+				Console.Read();
+				return true;
+			}
 			return false;
 		}
 	}
