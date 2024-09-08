@@ -47,6 +47,8 @@
 						break;
 					case 2:
 
+						QuizLast();
+
 						break;
 					case 3:
 
@@ -184,6 +186,13 @@
 			Console.Read();
 		}
 
+		private void QuizLast()
+		{
+			File.ReadAllLines("./Biology/Top20.txt").Where(line => line.Contains(this._login)).ToList().ForEach(line => Console.WriteLine($"Biology: {line}"));
+			File.ReadAllLines("./Informatics/Top20.txt").Where(line => line.Contains(this._login)).ToList().ForEach(line => Console.WriteLine($"Informatics: {line}"));
+			File.ReadAllLines("./Mathematics/Top20.txt").Where(line => line.Contains(this._login)).ToList().ForEach(line => Console.WriteLine($"Mathematics: {line}"));
+			Console.Read();
+		}
 	}
 }
 
