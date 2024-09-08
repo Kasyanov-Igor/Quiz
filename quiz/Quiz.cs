@@ -50,9 +50,16 @@
 						break;
 					case 3:
 
+						Console.WriteLine("Quiz section: Biology, Informatics, Mathematics");
+						userDirectory = Console.ReadLine();
+						Console.Clear();
+						Top20(userDirectory);
+
 						break;
 					case 4:
+
 						SettingsProfile();
+
 						break;
 				}
 			}
@@ -141,7 +148,7 @@
 				}
 				using (StreamWriter writer = new StreamWriter("./" + fileDirectory + "/Top20.txt", true))
 				{
-					writer.WriteLine($"{this._login}-{answersTrue}");
+					writer.WriteLine($"{answersTrue}-{this._login}");
 					writer.Close();
 				}
 				Console.Clear();
@@ -168,6 +175,12 @@
 				writer.Close();
 			}
 			Console.WriteLine($"The data has been changed");
+			Console.Read();
+		}
+
+		private void Top20(string fileDirectory)
+		{
+			File.ReadAllLines("./" + fileDirectory + "/Top20.txt").OrderByDescending(line => line).ToList().ForEach(line => Console.WriteLine(line));
 			Console.Read();
 		}
 
