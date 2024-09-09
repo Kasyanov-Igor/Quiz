@@ -72,7 +72,7 @@
 		 * param[in] Path file
 		 * return True - user is; False - user not is.
 		 */
-		public bool CheckingUserExistence(string filePath = "./Users.txt")
+		public bool CheckingUserExistence(string filePath = "./../../../Users.txt")
 		{
 			Console.WriteLine("Enter login");
 			this._login = Console.ReadLine();
@@ -100,7 +100,7 @@
 	   * param[in] Path file.
 	   * return True - registration was successful; False - registration failed.
 	   */
-		public bool Registration(string filePath = "./Users.txt")
+		public bool Registration(string filePath = "./../../../Users.txt")
 		{
 			if (File.Exists(filePath))
 			{
@@ -132,9 +132,9 @@
 		private bool PlayQuiz(string fileDirectory)
 		{
 			byte answersTrue = 0;
-			if (!File.Exists("./" + fileDirectory + "Questions.txt"))
+			if (!File.Exists("./../../../" + fileDirectory + "Questions.txt"))
 			{
-				using (StreamReader readerQuest = new StreamReader("./" + fileDirectory + "/Questions.txt"))
+				using (StreamReader readerQuest = new StreamReader("./../../../" + fileDirectory + "/Questions.txt"))
 				{
 					int lineCount = 0;
 					byte count = 1;
@@ -149,7 +149,7 @@
 							Console.WriteLine("\tAnswer");
 							char answerUser = Convert.ToChar(Console.ReadLine());
 
-							if (File.ReadLines("./" + fileDirectory + "/Answers.txt").Any(line => line.Contains($"{count} {answerUser})")))
+							if (File.ReadLines("./../../../" + fileDirectory + "/Answers.txt").Any(line => line.Contains($"{count} {answerUser})")))
 							{
 								answersTrue++;
 							}
@@ -158,7 +158,7 @@
 						}
 					}
 				}
-				using (StreamWriter writer = new StreamWriter("./" + fileDirectory + "/Top20.txt", true))
+				using (StreamWriter writer = new StreamWriter("./../../../" + fileDirectory + "/Top20.txt", true))
 				{
 					writer.WriteLine($"{answersTrue}-{this._login}");
 					writer.Close();
@@ -170,11 +170,11 @@
 			}
 			return false;
 		}
-        /*!
+		/*!
 		 * @brief Profile customization.
 		 * param[in] Path file.
 		 */
-        private void SettingsProfile(string filePath = "./Users.txt")
+		private void SettingsProfile(string filePath = "./../../../Users.txt")
 		{
 			string[] lines = File.ReadAllLines(filePath).Where(line => line != $"{this._login} {this._password} {this._dataBirth}").ToArray();
 			File.WriteAllLines(filePath, lines);
@@ -192,23 +192,23 @@
 			Console.WriteLine($"The data has been changed");
 			Console.Read();
 		}
-        /*!
-       * @brief Top 20 result.
-       * param[in] Name directory.
-       */
-        private void Top20(string fileDirectory)
+		/*!
+	   * @brief Top 20 result.
+	   * param[in] Name directory.
+	   */
+		private void Top20(string fileDirectory)
 		{
-			File.ReadAllLines("./" + fileDirectory + "/Top20.txt").OrderByDescending(line => line).ToList().ForEach(line => Console.WriteLine(line));
+			File.ReadAllLines("./../../../" + fileDirectory + "/Top20.txt").OrderByDescending(line => line).ToList().ForEach(line => Console.WriteLine(line));
 			Console.Read();
 		}
-        /*!
-      * @brief Displays the most recently completed quizzes on the screen.
-      */
-        private void QuizLast()
+		/*!
+	  * @brief Displays the most recently completed quizzes on the screen.
+	  */
+		private void QuizLast()
 		{
-			File.ReadAllLines("./Biology/Top20.txt").Where(line => line.Contains(this._login)).ToList().ForEach(line => Console.WriteLine($"Biology: {line}"));
-			File.ReadAllLines("./Informatics/Top20.txt").Where(line => line.Contains(this._login)).ToList().ForEach(line => Console.WriteLine($"Informatics: {line}"));
-			File.ReadAllLines("./Mathematics/Top20.txt").Where(line => line.Contains(this._login)).ToList().ForEach(line => Console.WriteLine($"Mathematics: {line}"));
+			File.ReadAllLines("./../../../Biology/Top20.txt").Where(line => line.Contains(this._login)).ToList().ForEach(line => Console.WriteLine($"Biology: {line}"));
+			File.ReadAllLines("./../../../Informatics/Top20.txt").Where(line => line.Contains(this._login)).ToList().ForEach(line => Console.WriteLine($"Informatics: {line}"));
+			File.ReadAllLines("./../../../Mathematics/Top20.txt").Where(line => line.Contains(this._login)).ToList().ForEach(line => Console.WriteLine($"Mathematics: {line}"));
 			Console.Read();
 		}
 	}
