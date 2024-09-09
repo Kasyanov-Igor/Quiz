@@ -69,6 +69,8 @@
 
 		/*!
 		 * @brief Checking for user existence
+		 * param[in] Path file
+		 * return True - user is; False - user not is.
 		 */
 		public bool CheckingUserExistence(string filePath = "./Users.txt")
 		{
@@ -93,7 +95,11 @@
 
 			return false;
 		}
-
+		/*!
+	   * @brief Registration users
+	   * param[in] Path file.
+	   * return True - registration was successful; False - registration failed.
+	   */
 		public bool Registration(string filePath = "./Users.txt")
 		{
 			if (File.Exists(filePath))
@@ -118,7 +124,11 @@
 
 			return false;
 		}
-
+		/*!
+		 * @brief Play the quiz.
+		 * param[in] name directory.
+		 * return True - game complete, data saved; False - uncompleted.
+		 */
 		private bool PlayQuiz(string fileDirectory)
 		{
 			byte answersTrue = 0;
@@ -160,8 +170,11 @@
 			}
 			return false;
 		}
-
-		private void SettingsProfile(string filePath = "./Users.txt")
+        /*!
+		 * @brief Profile customization.
+		 * param[in] Path file.
+		 */
+        private void SettingsProfile(string filePath = "./Users.txt")
 		{
 			string[] lines = File.ReadAllLines(filePath).Where(line => line != $"{this._login} {this._password} {this._dataBirth}").ToArray();
 			File.WriteAllLines(filePath, lines);
@@ -179,14 +192,19 @@
 			Console.WriteLine($"The data has been changed");
 			Console.Read();
 		}
-
-		private void Top20(string fileDirectory)
+        /*!
+       * @brief Top 20 result.
+       * param[in] Name directory.
+       */
+        private void Top20(string fileDirectory)
 		{
 			File.ReadAllLines("./" + fileDirectory + "/Top20.txt").OrderByDescending(line => line).ToList().ForEach(line => Console.WriteLine(line));
 			Console.Read();
 		}
-
-		private void QuizLast()
+        /*!
+      * @brief Displays the most recently completed quizzes on the screen.
+      */
+        private void QuizLast()
 		{
 			File.ReadAllLines("./Biology/Top20.txt").Where(line => line.Contains(this._login)).ToList().ForEach(line => Console.WriteLine($"Biology: {line}"));
 			File.ReadAllLines("./Informatics/Top20.txt").Where(line => line.Contains(this._login)).ToList().ForEach(line => Console.WriteLine($"Informatics: {line}"));
