@@ -3,8 +3,9 @@ namespace Quiz.Tests
     public class QuizTests
     {
         [Fact]
-        public void Test1()
+        public void RegistrationTests()
         {
+            quiz.Quiz test = new quiz.Quiz();
 
         }
     }
